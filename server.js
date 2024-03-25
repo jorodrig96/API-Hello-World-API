@@ -2,6 +2,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
+//Routers
+const languages_controller = require('./controllers/languages_controller')
+
 // CONFIGURATION
 require('dotenv').config()
 const PORT = process.env.PORT
@@ -13,6 +16,11 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopolo
 // MIDDLEWARE
 app.use(express.urlencoded({extended: true}))
 
+
+// CONTROLLERS
+app.use('/languages', languages_controller);
+
+
 // ROUTES
 app.get('/', (req, res) => {
   res.send('Welcome to the Hello World! API')
@@ -20,5 +28,5 @@ app.get('/', (req, res) => {
 
 // LISTEN
 app.listen(PORT, () => {
-  console.log('Greetings! From port: ', PORT);
+  console.log('Greetings! From port:', PORT);
 })
